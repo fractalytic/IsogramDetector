@@ -35,7 +35,8 @@ int main()
     bool spaceFound = false;
     bool digitFound = false;
     bool punctuationFound = false;
-
+    int letterArray[26] = {};
+    bool isogram = true;
     clock_t startTime, currentTime;
     double elapsedSeconds;
 
@@ -48,7 +49,7 @@ int main()
         spaceFound = false;
         digitFound = false;
         punctuationFound = false;
-        for (int i = 0; i <= inputString.length(); i++) {
+        for (int i = 0; i < inputString.length(); i++) {
             if (isspace(inputString[i])) {
                 spaceFound = true;
             }
@@ -73,11 +74,22 @@ int main()
 
     }
 
-    // TODO: Split word into component letters and run through each
+    // Split word into component letters and run through each
+    for (int i = 0; i < inputString.length(); i++) {
+        letterArray[(int) tolower(inputString[i]) - 97]++;
+        if (letterArray[(int) tolower(inputString[i]) - 97] > 1) {
+            isogram = false;
+            // TODO: break from here if isogram = false
+        }
+    }
 
-    // TODO: If a letter is used more than one time return false
-
-    // TODO: Return true
+    // If a letter is used more than one time return false
+    if (isogram) {
+        cout << "Yes, congratulations the word you entered (" << inputString << ") is an isogram!";
+    }
+    else {
+        cout << "No, sorry but the word you entered (" << inputString << ") is not an isogram as it has letters that appear more than once";
+    }
 
     // TODO: Ask if user wants to try again
 
