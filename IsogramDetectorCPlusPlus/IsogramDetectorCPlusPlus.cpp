@@ -22,6 +22,8 @@
 #include <iostream>
 #include <sstream>
 #include <ctime>
+#include <cstring>
+#include <cctype>
 using namespace std;
 
 
@@ -30,16 +32,44 @@ int main()
     // Create and initialise variables
     string inputString = "";
     bool validInput = false;
+    bool spaceFound = false;
+    bool digitFound = false;
+    bool punctuationFound = false;
 
     clock_t startTime, currentTime;
     double elapsedSeconds;
 
     // Get the input word from the user
     while (validInput == false) {
-        std::cout << "Please enter a single word to test >";
+        std::cout << "Please enter a single word to test > ";
         getline(cin, inputString);
 
-        // TODO: Test to see if this is a valid single word
+        // Test to see if this is a single word (no spaces), without numbers or punctuation marks
+        spaceFound = false;
+        digitFound = false;
+        punctuationFound = false;
+        for (int i = 0; i <= inputString.length(); i++) {
+            if (isspace(inputString[i])) {
+                spaceFound = true;
+            }
+            if (isdigit(inputString[i])) {
+                digitFound = true;
+            }
+            if (ispunct(inputString[i])) {
+                punctuationFound = true;
+            }
+        }
+        validInput = not(spaceFound || digitFound || punctuationFound);
+
+        if (spaceFound) {
+            cout << "\nThat word isn't valid as it contains a space, please try again\n";
+        }
+        else if (digitFound) {
+            cout << "\nThat word isn't valid as it contains a number, please try again\n";
+        }
+        else if (punctuationFound) {
+            cout << "\nThat word isn't valid as it contains a punctuation mark, please try again\n";
+        }
 
     }
 
