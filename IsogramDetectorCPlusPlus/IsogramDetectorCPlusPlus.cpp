@@ -79,6 +79,9 @@ int main()
 
         }
 
+        // start the timer
+        startTime = clock();
+
         // Split word into component letters and run through each
         for (int i = 0; i < 26; i++) {
             letterArray[i] = 0;
@@ -100,8 +103,13 @@ int main()
             cout << "No, sorry but the word you entered (" << inputString << ") is not an isogram as it has letters that appear more than once" << endl << endl;
         }
 
-        // TODO: Add in timing
-        // TODO: Ask if user wants to try again
+        // Display timing code
+        currentTime = clock();
+        elapsedSeconds = ((currentTime - startTime) / (CLOCKS_PER_SEC / 1.0));
+        cout.precision(4);
+        cout << "This took: " << fixed << elapsedSeconds << " seconds to run" << endl << endl;
+
+        // Ask if user wants to try again
         cout << "Do you want another go (Y/N)? ";
         getline(cin, loopAnswer);
         if (loopAnswer == "y" || loopAnswer == "Y") {
@@ -111,7 +119,6 @@ int main()
         else {
             continuePlaying = false;
         }
-
 
     }
 }
